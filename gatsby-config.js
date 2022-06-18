@@ -1,3 +1,7 @@
+
+require("dotenv").config();
+
+
 /**
  * 👋 Hey there!
  * This file is the starting point for your new WordPress/Gatsby site! 🚀
@@ -27,8 +31,7 @@ module.exports = {
       options: {
         // the only required plugin option for WordPress is the GraphQL url.
         url:
-          process.env.WPGRAPHQL_URL ||
-          `https://wpgatsbydemo.wpengine.com/graphql`,
+          process.env.WPGRAPHQL_URL,
       },
     },
 
