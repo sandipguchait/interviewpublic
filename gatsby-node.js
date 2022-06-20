@@ -164,3 +164,4 @@ async function getPosts({ graphql, reporter }) {
 
   return graphqlResult.data.allWpPost.edges
 }
+
