@@ -3,6 +3,7 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 import parse from "html-react-parser";
 import { ThemeContext } from './layout';
 import Search from './Search/Search';
+import SearchResults from './Search/SearchResults';
 import icon_light from '../../public/icons/logo_light.png';
 import icon_dark from '../../public/icons/logo_dark.png';
 import darkmode_icon from '../../public/icons/dark_mode_icon.png';
@@ -10,6 +11,7 @@ import lightmode_icon from '../../public/icons/light_mode_icon.png';
 
 const Header = ({ location }) => {
     const { theme, toggleTheme} = useContext(ThemeContext);
+    const [searchTerm, setSearchTerm] = useState('');
     const [openMobileMenu, setOpenMobileMenu] = useState(false);
     const [width, setWidth] = useState(window.innerWidth);
 
@@ -109,7 +111,7 @@ const Header = ({ location }) => {
         </nav>
    )
 
-    const renderMobileMenu = () => {
+    const renderNavMenuforSmallScreen = () => {
         if(width < 978){
             return (
             <div className='nav_mobile_wrapper'>
@@ -124,7 +126,11 @@ const Header = ({ location }) => {
             return (
                 <React.Fragment>
                    {nav_menu()}
-                    <Search className="search_ui" />
+                    <Search 
+                        className="search_ui"
+                        setSearchTerm={setSearchTerm}  
+                        searchTerm={searchTerm}
+                    />
                 </React.Fragment>
             )
         }
@@ -132,38 +138,50 @@ const Header = ({ location }) => {
     
   return (
     <>
-     <header className='header_container'>
-            <picture>
-                <source srcSet={renderIcon()} media="(max-width: 780px)" />
-                <Link to='/'>
-                    <img src={renderIcon()} loading='eager' decoding='async' alt='interview public'/>
-                </Link>
-            </picture>
-            
-            {/* Rendering Nav UI for large screen */}
-            {renderNavMenuforLargeScreen()}
+        <>
+        <header className='header_container'>
+                <picture>
+                    <source srcSet={renderIcon()} media="(max-width: 780px)" />
+                    <Link to='/'>
+                        <img src={renderIcon()} loading='eager' decoding='async' alt='interview public'/>
+                    </Link>
+                </picture>
+                
+                {/* Rendering Nav UI for large screen */}
+                {renderNavMenuforLargeScreen()}
 
-            {/* Rendering Menu Button only for small screens */}
-            <button 
-                type='button' 
-                aria-haspopup="true" 
-                aria-expanded="false"
-                className="main-nav-more-item__button display"
-                onClick={handleToggleMobileMenu}
-            >
-                Menu    
-            </button>
-            
-            <button className="mode_button" onClick={toggleTheme}>
-                <img style={{ height:"30px"}} src={renderThemeModeIcon()} alt='dark mode icon'/>
-            </button>
-      </header> 
+                {/* Rendering Menu Button only for small screens */}
+                <button 
+                    type='button' 
+                    aria-haspopup="true" 
+                    aria-expanded="false"
+                    className="main-nav-more-item__button display"
+                    onClick={handleToggleMobileMenu}
+                >
+                    Menu    
+                </button>
+                
+                <button className="mode_button" onClick={toggleTheme}>
+                    <img style={{ height:"30px"}} src={renderThemeModeIcon()} alt='dark mode icon'/>
+                </button>
+        </header> 
+        { width > 978 && <SearchResults 
+            searchTerm={searchTerm}
+        />}
+        </>
         {/* Rendering Mobile Menu */}
-        {openMobileMenu && renderMobileMenu()}
+        {openMobileMenu && renderNavMenuforSmallScreen()}
         
         {/* render mobile search */}
        <div className='search_mobile'>
-             <Search className="search_ui" />
+             <Search 
+                className="search_ui"
+                setSearchTerm={setSearchTerm}  
+                searchTerm={searchTerm}
+            />
+        <SearchResults
+            searchTerm={searchTerm}
+        />
        </div>
     </>
   )
