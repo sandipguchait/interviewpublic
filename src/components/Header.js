@@ -11,7 +11,7 @@ import lightmode_icon from '../../public/icons/light_mode_icon.png';
 
 const Header = ({ location }) => {
     const { theme, toggleTheme} = useContext(ThemeContext);
-    const [searchTerm, setSearchTerm] = useState('');
+    const [searchTerm, setSearchTerm] = useState(()=>"");
     const [openMobileMenu, setOpenMobileMenu] = useState(false);
     const [width, setWidth] = useState(window.innerWidth);
 

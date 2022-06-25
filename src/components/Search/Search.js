@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import SearchResults from './SearchResults';
+import React from 'react';
 
-const Search = ({ setSearchTerm, searchTerm }) => {
+const Search = ({ setSearchTerm }) => {
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
   }
@@ -16,9 +15,6 @@ const Search = ({ setSearchTerm, searchTerm }) => {
           aria-label='search articles'
           onChange={handleInputChange}
         />
-        {/* <SearchResults 
-          searchTerm={searchTerm} 
-        /> */}
     </div>
   )
 }

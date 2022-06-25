@@ -15,14 +15,14 @@ const Layout = ({ children, location }) => {
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <div id={theme}>
         <Header location={location}/>
-          {/* <main>{children}</main>
+          <main>{children}</main>
         <footer>
           © {new Date().getFullYear()}, Built with
           {` `}
           <a href="https://www.gatsbyjs.com">Gatsby</a>
           {` `}
           And <a href="https://wordpress.org/">WordPress</a>
-        </footer> */}
+        </footer>
       </div>
     </ThemeContext.Provider>
   )
